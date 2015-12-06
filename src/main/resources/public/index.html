@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="angulartest">
+<head>
+<title>Služba na vyhledávaní obce v databazi RUIAN</title>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- https://github.com/angular-ui/ui-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.13.2/select.css">
+<!-- Select2 theme -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+<!-- link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css"-->
+<!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap2.css"> -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
+
+<!-- aplikace -->
+<link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body ng-controller="DemoCtrl">
+	<div class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#/">Demo</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<form name="form1" action="/ruian/sobec">
+			<div class="form-group" show-errors>
+				<h3>Příklad vráceného JSON</h3>
+
+				<div class="form-group" show-errors>
+					<input type="text" class="form-control" name="sobec" value="radoti" required />
+				</div>
+				
+				<div class="form-group">
+					<div>
+						<div class="checkbox">
+							<label><input type="checkbox" name="pretty" value="true" checked>formátovat</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<button type="submit" class="btn btn-default">Odeslat</button>
+				</div>
+			</div>
+		</form>
+		<form name="form3">
+			<div class="form-group" show-errors>
+				<h3>Přiklad pro AngularJS ui-select</h3>
+				<ui-select ng-model="address3.selected"
+				           theme="bootstrap"
+				           reset-search-input="false"
+				           >
+				  <ui-select-match placeholder="Napiš jméno obce...">
+				    <span ng-bind-html="$select.selected.formatted_address | highlight: $select.search"></span>
+				    <small ng-bind-html="'['+$select.selected.obec_kod+']'"></small>		  
+				  </ui-select-match>
+		
+				  <ui-select-choices repeat="address in addresses3"
+				           refresh="refreshAddresses3($select.search)"
+				           refresh-delay="0">
+				    <span ng-bind-html="address.formatted_address | highlight: $select.search"></span>
+				    <small ng-bind-html="'['+address.obec_kod+']'"></small>
+				  </ui-select-choices>
+				</ui-select>
+			</div>
+			<p>Vybraná obec: {{address3.selected}}</p>
+		</form>
+	</div>
+
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	<!-- Bootstrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>
+	<!-- AngularJS ui-select https://github.com/angular-ui/ui-select -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.13.2/select.js"></script>
+	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.13.2/select.js"></script-->
+	
+	
+	<!-- aplikace -->
+	<script src="/scripts/demo.js" charset="utf-8" ></script>
+	
+</body>
+</html>
