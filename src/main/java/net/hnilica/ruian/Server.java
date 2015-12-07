@@ -98,12 +98,14 @@ public class Server {
 				res.type("application/json; charset=UTF-8");
 				res.header("X-Frame-Options", "SAMEORIGIN");
 				res.header("X-XSS-Protection", "1; mode=block");
+				res.header("Access-Control-Allow-Origin", "*");
 				return cacheSObec.get(q);
 			}
 			try {
 				res.type("application/json; charset=UTF-8");
 				res.header("X-Frame-Options", "SAMEORIGIN");
 				res.header("X-XSS-Protection", "1; mode=block");
+				res.header("Access-Control-Allow-Origin", "*");
 				String sobec=req.queryParams("sobec");
 				if(sobec==null || sobec.isEmpty()){
 					//nic do vyhledavani nevsoupilo, tak nic nevratim
