@@ -13,7 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.mapdb.BTreeMap;
@@ -67,6 +71,7 @@ public class Server {
         setPort(PORT);
         staticFileLocation("/public");
         
+        
         //nastavi znakovou sadu hlavne pro staticke soubory
         before("/*","text/html",(req, res) -> {
         	res.type("text/html; charset=utf-8");
@@ -82,6 +87,13 @@ public class Server {
     	
 	}
 	
+	public static String getExpire(long sec){
+		Date expdate= new Date();
+		expdate.setTime (expdate.getTime() + (sec * 1000));
+		DateFormat df = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss zzz");
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return df.format(expdate);
+	}
 	
 
     public static void sobec(){
@@ -94,18 +106,16 @@ public class Server {
 
 		get("/ruian/sobec", (req, res) -> {
 			String q=req.queryString();
+			res.type("application/json; charset=UTF-8");
+			res.header("X-Frame-Options", "SAMEORIGIN");
+			res.header("X-XSS-Protection", "1; mode=block");
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Cache-Control", "max-age=31536000"); // HTTP 1.1.
+			res.header("Expires", getExpire(31536000)); // Proxies.
 			if (cacheSObec.containsKey(q)){
-				res.type("application/json; charset=UTF-8");
-				res.header("X-Frame-Options", "SAMEORIGIN");
-				res.header("X-XSS-Protection", "1; mode=block");
-				res.header("Access-Control-Allow-Origin", "*");
 				return cacheSObec.get(q);
 			}
 			try {
-				res.type("application/json; charset=UTF-8");
-				res.header("X-Frame-Options", "SAMEORIGIN");
-				res.header("X-XSS-Protection", "1; mode=block");
-				res.header("Access-Control-Allow-Origin", "*");
 				String sobec=req.queryParams("sobec");
 				if(sobec==null || sobec.isEmpty()){
 					//nic do vyhledavani nevsoupilo, tak nic nevratim
