@@ -33,7 +33,7 @@ app.controller('DemoCtrl', function($scope, $http) {
   $scope.refreshAddresses3 = function(address) {
     var params = {sobec: address};
     return $http.get(
-      '/ruian/sobec',
+      '/api/sobec',
       {params: params}
     ).then(function(response) {
       $scope.addresses3 = response.data

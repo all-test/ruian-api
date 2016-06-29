@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="container">
-		<form name="form1" action="/ruian/sobec">
+		<form name="form1" action="/api/sobec">
 			<div class="form-group" show-errors>
 				<h3>Příklad vráceného JSON</h3>
 
@@ -60,14 +60,14 @@
 				           reset-search-input="false"
 				           >
 				  <ui-select-match placeholder="Napiš jméno obce...">
-				    <span ng-bind-html="$select.selected.formatted_address | highlight: $select.search"></span>
+				    <span ng-bind-html="$select.selected.sobec_nazev_desc | highlight: $select.search"></span>
 				    <small ng-bind-html="'['+$select.selected.obec_kod+']'"></small>		  
 				  </ui-select-match>
 		
 				  <ui-select-choices repeat="address in addresses3"
 				           refresh="refreshAddresses3($select.search)"
 				           refresh-delay="0">
-				    <span ng-bind-html="address.formatted_address | highlight: $select.search"></span>
+				    <span ng-bind-html="address.sobec_nazev_desc | highlight: $select.search"></span>
 				    <small ng-bind-html="'['+address.obec_kod+']'"></small>
 				  </ui-select-choices>
 				</ui-select>
