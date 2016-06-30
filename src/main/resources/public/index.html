@@ -34,7 +34,7 @@
 	<div class="container">
 		<form name="form1" action="/api/sobec">
 			<div class="form-group" show-errors>
-				<h3>Příklad vráceného JSON</h3>
+				<h3>Příklad vráceného JSON (hledani obce)</h3>
 
 				<div class="form-group" show-errors>
 					<input type="text" class="form-control" name="sobec" value="radoti" required />
@@ -73,6 +73,28 @@
 				</ui-select>
 			</div>
 			<p>Vybraná obec: {{address3.selected}}</p>
+		</form>
+		<form name="form4" action="/api/gobec">
+			<div class="form-group" show-errors>
+				<h3>Příklad vráceného JSON (kod obce)</h3>
+
+				<div class="form-group" show-errors>
+					<input type="text" class="form-control" name="location" value="radotin" required />
+				</div>
+				<div class="form-group" show-errors>
+					<input type="text" class="form-control" name="post_code" value="15300" required />
+				</div>
+				<div class="form-group">
+					<div>
+						<div class="checkbox">
+							<label><input type="checkbox" name="pretty" value="true" checked>formátovat</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<button type="submit" class="btn btn-default">Odeslat</button>
+				</div>
+			</div>
 		</form>
 	</div>
 
